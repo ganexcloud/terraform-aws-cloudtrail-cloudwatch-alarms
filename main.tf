@@ -1,5 +1,6 @@
 data "aws_caller_identity" "default" {}
 data "aws_region" "current" {}
+data "aws_iam_account_alias" "current" {}
 
 resource "aws_sns_topic" "default" {
   name = "${local.alert_for}"
@@ -74,7 +75,7 @@ resource "aws_cloudwatch_log_metric_filter" "default" {
 
 resource "aws_cloudwatch_metric_alarm" "default" {
   count               = "${length(local.filter_pattern)}"
-  alarm_name          = "${local.metric_name[count.index]}"
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] ${local.metric_name[count.index]}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "${local.metric_name[count.index]}"

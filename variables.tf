@@ -30,3 +30,9 @@ variable "metric_namespace" {
   description = "A namespace for grouping all of the metrics together"
   default     = "CloudTrailAlarms"
 }
+
+variable "metric_alarm_name_prefix" {
+  description = "Prefix to add in all alarms. Current account alias if used if none provied."
+  default     = ""
+  type        = "string"
+}
