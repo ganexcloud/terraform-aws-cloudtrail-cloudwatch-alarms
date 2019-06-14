@@ -64,7 +64,7 @@ data "aws_iam_policy_document" "sns_topic_policy" {
       variable = "AWS:SourceArn"
 
       values = [
-        "arn:aws:cloudwatch::${data.aws_caller_identity.default.account_id}:alarm:[${title(local.metric_alarm_name_prefix)}]*",
+        "arn:aws:cloudwatch:*:${data.aws_caller_identity.default.account_id}:alarm:[${title(local.metric_alarm_name_prefix)}]*",
       ]
     }
   }
