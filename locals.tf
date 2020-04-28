@@ -1,9 +1,11 @@
 locals {
-  alert_for                = "cloudtrail-alarms"
-  sns_topic_arn            = "${var.sns_topic_arn == "" ? aws_sns_topic.default.arn : var.sns_topic_arn }"
-  endpoints                = "${distinct(compact(concat(list(local.sns_topic_arn), var.additional_endpoint_arns)))}"
-  region                   = "${var.region == "" ? data.aws_region.current.name : var.region}"
-  metric_alarm_name_prefix = "${var.metric_alarm_name_prefix == "" ? data.aws_iam_account_alias.current.account_alias : var.metric_alarm_name_prefix }"
+  #alert_for     = "cloudtrail-alarms"
+  #sns_topic_arn = var.sns_topic_arn == "" ? aws_sns_topic.default.arn : var.sns_topic_arn
+  #endpoints = distinct(
+  #  compact(concat([local.sns_topic_arn], var.additional_endpoint_arns)),
+  #)
+  region                   = var.region == "" ? data.aws_region.current.name : var.region
+  metric_alarm_name_prefix = var.metric_alarm_name_prefix == "" ? data.aws_iam_account_alias.current.account_alias : var.metric_alarm_name_prefix
 
   metric_name = [
     "api-authorization-failure",
@@ -25,7 +27,7 @@ locals {
     "backup-plan-job-failed",
   ]
 
-  metric_namespace = "${var.metric_namespace}"
+  metric_namespace = var.metric_namespace
   metric_value     = "1"
 
   filter_pattern = [
@@ -68,3 +70,4 @@ locals {
     "Alarms when a backup job failed on Backup Plan.",
   ]
 }
+
