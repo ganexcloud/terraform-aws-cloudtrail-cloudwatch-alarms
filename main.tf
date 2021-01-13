@@ -33,4 +33,5 @@ resource "aws_cloudwatch_metric_alarm" "default" {
   threshold           = local.metric_name[count.index] == "ConsoleSignInFailureCount" ? "3" : "1"
   alarm_description   = local.alarm_description[count.index]
   alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
 }
