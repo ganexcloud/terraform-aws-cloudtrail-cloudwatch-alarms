@@ -29,3 +29,9 @@ variable "metric_alarm_name_prefix" {
   default     = ""
   type        = string
 }
+
+variable "api-authorization-failure" {
+  description = "Enable api-authorization-failure alarm"
+  default     = true
+  type        = bool
+}
