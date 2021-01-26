@@ -35,3 +35,99 @@ variable "api-authorization-failure" {
   default     = true
   type        = bool
 }
+
+variable "s3-bucket-activity-event" {
+  description = "Enable s3-bucket-activity-event alarm"
+  default     = true
+  type        = bool
+}
+
+variable "security-group-event" {
+  description = "Enable security-group-event alarm"
+  default     = true
+  type        = bool
+}
+
+variable "network-acl-event" {
+  description = "Enable network-acl-event alarm"
+  default     = true
+  type        = bool
+}
+
+variable "gateway-event" {
+  description = "Enable gateway-event alarm"
+  default     = true
+  type        = bool
+}
+
+variable "vpc-event" {
+  description = "Enable vpc-event alarm"
+  default     = true
+  type        = bool
+}
+
+variable "ec2-instance-event" {
+  description = "Enable ec2-instance-event alarm"
+  default     = true
+  type        = bool
+}
+
+variable "ec2-large-instance-event" {
+  description = "Enable ec2-large-instance-event alarm"
+  default     = true
+  type        = bool
+}
+
+variable "cloudtrail-event" {
+  description = "Enable cloudtrail-event alarm"
+  default     = true
+  type        = bool
+}
+
+variable "console-sign-in-failure" {
+  description = "Enable console-sign-in-failure alarm"
+  default     = true
+  type        = bool
+}
+
+variable "iam-policy-change" {
+  description = "Enable iam-policy-change alarm"
+  default     = true
+  type        = bool
+}
+
+variable "console-sign-in-without-mfa" {
+  description = "Enable console-sign-in-without-mfa alarm"
+  default     = true
+  type        = bool
+}
+
+variable "root-account-usage" {
+  description = "Enable root-account-usage alarm"
+  default     = true
+  type        = bool
+}
+
+variable "kms-key-pending-deletion-error" {
+  description = "Enable kms-key-pending-deletion-error alarm"
+  default     = true
+  type        = bool
+}
+
+variable "aws-config-change" {
+  description = "Enable aws-config-change alarm"
+  default     = true
+  type        = bool
+}
+
+variable "route-table-changes" {
+  description = "Enable route-table-changes alarm"
+  default     = true
+  type        = bool
+}
+
+variable "backup-plan-job-failed" {
+  description = "Enable backup-plan-job-failed alarm"
+  default     = true
+  type        = bool
+}
