@@ -1,37 +1,513 @@
-data "aws_caller_identity" "default" {
-}
+data "aws_caller_identity" "default" {}
+data "aws_region" "current" {}
+data "aws_iam_account_alias" "current" {}
 
-data "aws_region" "current" {
-}
-
-data "aws_iam_account_alias" "current" {
-}
-
-resource "aws_cloudwatch_log_metric_filter" "default" {
-  count          = length(local.filter_pattern)
-  name           = local.metric_name[count.index]
-  pattern        = local.filter_pattern[count.index]
+# api-authorization-failure
+resource "aws_cloudwatch_log_metric_filter" "api_authorization_failure" {
+  count          = var.api_authorization_failure_enabled ? 1 : 0
+  name           = "api-authorization-failure"
+  pattern        = var.api_authorization_failure_pattern
   log_group_name = var.log_group_name
 
   metric_transformation {
-    name      = local.metric_name[count.index]
-    namespace = local.metric_namespace
-    value     = local.metric_value
+    name      = "api-authorization-failure"
+    namespace = var.metric_namespace
+    value     = 1
   }
 }
 
-resource "aws_cloudwatch_metric_alarm" "default" {
-  count               = length(local.filter_pattern)
-  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] ${local.metric_name[count.index]}"
+resource "aws_cloudwatch_metric_alarm" "api_authorization_failure" {
+  count               = var.api_authorization_failure_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] api-authorization-failure"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
-  metric_name         = local.metric_name[count.index]
-  namespace           = local.metric_namespace
-  period              = "300"
+  metric_name         = "api-authorization-failure"
+  namespace           = var.metric_namespace
+  period              = var.api_authorization_failure_period
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
-  threshold           = local.metric_name[count.index] == "ConsoleSignInFailureCount" ? "3" : "1"
-  alarm_description   = local.alarm_description[count.index]
+  threshold           = var.api_authorization_failure_threshold
+  alarm_description   = "Alarms when an unauthorized API call is made."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# s3-bucket-activity-event
+resource "aws_cloudwatch_log_metric_filter" "s3_bucket_activity_event" {
+  count          = var.s3_bucket_activity_event_enabled ? 1 : 0
+  name           = "s3-bucket-activity-event"
+  pattern        = var.s3_bucket_activity_event_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "s3-bucket-activity-event"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "s3_bucket_activity_event" {
+  count               = var.s3_bucket_activity_event_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] s3-bucket-activity-event"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "s3-bucket-activity-event"
+  namespace           = var.metric_namespace
+  period              = var.s3_bucket_activity_event_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.s3_bucket_activity_event_threshold
+  alarm_description   = "Alarms when an API call is made to S3 to put or delete a Bucket, Bucket Policy or Bucket ACL."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# security-group-event
+resource "aws_cloudwatch_log_metric_filter" "security_group_event" {
+  count          = var.security_group_event_enabled ? 1 : 0
+  name           = "security-group-event"
+  pattern        = var.security_group_event_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "security-group-event"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "security_group_event" {
+  count               = var.security_group_event_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] security-group-event"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "security-group-event"
+  namespace           = var.metric_namespace
+  period              = var.security_group_event_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.security_group_event_threshold
+  alarm_description   = "Alarms when an API call is made to create, update or delete a Security Group."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# network-acl-event
+resource "aws_cloudwatch_log_metric_filter" "network_acl_event" {
+  count          = var.network_acl_event_enabled ? 1 : 0
+  name           = "network-acl-event"
+  pattern        = var.network_acl_event_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "network-acl-event"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "network_acl_event" {
+  count               = var.network_acl_event_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] network-acl-event"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "network-acl-event"
+  namespace           = var.metric_namespace
+  period              = var.network_acl_event_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.network_acl_event_threshold
+  alarm_description   = "Alarms when an API call is made to create, update or delete a Network ACL."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# gateway-event
+resource "aws_cloudwatch_log_metric_filter" "gateway_event" {
+  count          = var.gateway_event_enabled ? 1 : 0
+  name           = "gateway-event"
+  pattern        = var.gateway_event_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "gateway-event"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "gateway_event" {
+  count               = var.gateway_event_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] gateway-event"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "gateway-event"
+  namespace           = var.metric_namespace
+  period              = var.gateway_event_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.gateway_event_threshold
+  alarm_description   = "Alarms when an API call is made to create, update or delete a Customer or Internet Gateway."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+#vpc-event
+resource "aws_cloudwatch_log_metric_filter" "vpc_event" {
+  count          = var.vpc_event_enabled ? 1 : 0
+  name           = "vpc-event"
+  pattern        = var.vpc_event_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "vpc-event"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "vpc_event" {
+  count               = var.vpc_event_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] vpc-event"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "vpc-event"
+  namespace           = var.metric_namespace
+  period              = var.vpc_event_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.vpc_event_threshold
+  alarm_description   = "Alarms when an API call is made to create, update or delete a VPC, VPC peering connection or VPC connection to classic."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# ec2-instance-event
+resource "aws_cloudwatch_log_metric_filter" "ec2_instance_event" {
+  count          = var.ec2_instance_event_enabled ? 1 : 0
+  name           = "ec2-instance-event"
+  pattern        = var.ec2_instance_event_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "ec2-instance-event"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "ec2_instance_event" {
+  count               = var.ec2_instance_event_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] ec2-instance-event"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "ec2-instance-event"
+  namespace           = var.metric_namespace
+  period              = var.ec2_instance_event_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.ec2_instance_event_threshold
+  alarm_description   = "Alarms when an API call is made to create, terminate, start, stop or reboot an EC2 instance."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# ec2-large-instance-event
+resource "aws_cloudwatch_log_metric_filter" "ec2_large_instance_event" {
+  count          = var.ec2_large_instance_event_enabled ? 1 : 0
+  name           = "ec2-large-instance-event"
+  pattern        = var.ec2_large_instance_event_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "ec2-large-instance-event"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "ec2_large_instance_event" {
+  count               = var.ec2_large_instance_event_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] ec2-large-instance-event"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "ec2-large-instance-event"
+  namespace           = var.metric_namespace
+  period              = var.ec2_large_instance_event_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.ec2_large_instance_event_threshold
+  alarm_description   = "Alarms when an API call is made to create, terminate, start, stop or reboot a 4x-large or greater EC2 instance."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# cloudtrail-event
+resource "aws_cloudwatch_log_metric_filter" "cloudtrail_event" {
+  count          = var.cloudtrail_event_enabled ? 1 : 0
+  name           = "cloudtrail-event"
+  pattern        = var.cloudtrail_event_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "cloudtrail-event"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "cloudtrail_event" {
+  count               = var.cloudtrail_event_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] cloudtrail-event"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "cloudtrail-event"
+  namespace           = var.metric_namespace
+  period              = var.cloudtrail_event_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.cloudtrail_event_threshold
+  alarm_description   = "Alarms when an API call is made to create, update or delete a .cloudtrail. trail, or to start or stop logging to a trail."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# console-sign-in-failure
+resource "aws_cloudwatch_log_metric_filter" "console_sign_in_failure" {
+  count          = var.console_sign_in_failure_enabled ? 1 : 0
+  name           = "console-sign-in-failure"
+  pattern        = var.console_sign_in_failure_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "console-sign-in-failure"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "console_sign_in_failure" {
+  count               = var.console_sign_in_failure_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] console-sign-in-failure"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "console-sign-in-failure"
+  namespace           = var.metric_namespace
+  period              = var.console_sign_in_failure_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.console_sign_in_failure_threshold
+  alarm_description   = "Alarms when an unauthenticated API call is made to sign into the console."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# iam-policy-change
+resource "aws_cloudwatch_log_metric_filter" "iam_policy_change" {
+  count          = var.iam_policy_change_enabled ? 1 : 0
+  name           = "iam-policy-change"
+  pattern        = var.iam_policy_change_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "iam-policy-change"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "iam_policy_change" {
+  count               = var.iam_policy_change_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] iam-policy-change"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "iam-policy-change"
+  namespace           = var.metric_namespace
+  period              = var.iam_policy_change_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.iam_policy_change_threshold
+  alarm_description   = "Alarms when an API call is made to change an IAM policy."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# console-sign-in-without-mfa
+resource "aws_cloudwatch_log_metric_filter" "console_sign_in_without_mfa" {
+  count          = var.console_sign_in_without_mfa_enabled ? 1 : 0
+  name           = "console-sign-in-without-mfa"
+  pattern        = var.console_sign_in_without_mfa_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "console-sign-in-without-mfa"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "console_sign_in_without_mfa" {
+  count               = var.console_sign_in_without_mfa_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] console-sign-in-without-mfa"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "console-sign-in-without-mfa"
+  namespace           = var.metric_namespace
+  period              = var.console_sign_in_without_mfa_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.console_sign_in_without_mfa_threshold
+  alarm_description   = "Alarms when a user logs into the console without MFA."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# root-account-usage
+resource "aws_cloudwatch_log_metric_filter" "root_account_usage" {
+  count          = var.root_account_usage_enabled ? 1 : 0
+  name           = "root-account-usage"
+  pattern        = var.root_account_usage_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "root-account-usage"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "root_account_usage" {
+  count               = var.root_account_usage_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] root-account-usage"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "root-account-usage"
+  namespace           = var.metric_namespace
+  period              = var.root_account_usage_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.root_account_usage_threshold
+  alarm_description   = "Alarms when a root account usage is detected."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# kms-key-pending-deletion-error
+resource "aws_cloudwatch_log_metric_filter" "kms-key-pending-deletion-error" {
+  count          = var.kms_key_pending_deletion_error_enabled ? 1 : 0
+  name           = "kms-key-pending-deletion-error"
+  pattern        = var.kms_key_pending_deletion_error_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "kms-key-pending-deletion-error"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "kms-key-pending-deletion-error" {
+  count               = var.kms_key_pending_deletion_error_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] kms-key-pending-deletion-error"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "kms-key-pending-deletion-error"
+  namespace           = var.metric_namespace
+  period              = var.kms_key_pending_deletion_error_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.kms_key_pending_deletion_error_threshold
+  alarm_description   = "Alarms when a customer created KMS key is pending deletion."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# aws-config-change
+resource "aws_cloudwatch_log_metric_filter" "aws_config_change" {
+  count          = var.aws_config_change_enabled ? 1 : 0
+  name           = "aws-config-change"
+  pattern        = var.aws_config_change_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "aws-config-change"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "aws_config_change" {
+  count               = var.aws_config_change_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] aws-config-change"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "aws-config-change"
+  namespace           = var.metric_namespace
+  period              = var.aws_config_change_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.aws_config_change_threshold
+  alarm_description   = "Alarms when AWS Config changes."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# route-table-changes
+resource "aws_cloudwatch_log_metric_filter" "route_table_changes" {
+  count          = var.route_table_changes_enabled ? 1 : 0
+  name           = "route-table-changes"
+  pattern        = var.route_table_changes_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "route-table-changes"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "route_table_changes" {
+  count               = var.route_table_changes_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] route-table-changes"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "route-table-changes"
+  namespace           = var.metric_namespace
+  period              = var.route_table_changes_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.route_table_changes_threshold
+  alarm_description   = "Alarms when route table changes are detected."
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+}
+
+# backup-plan-job-failed
+resource "aws_cloudwatch_log_metric_filter" "backup_plan_job_failed" {
+  count          = var.backup_plan_job_failed_enabled ? 1 : 0
+  name           = "backup-plan-job-failed"
+  pattern        = var.backup_plan_job_failed_pattern
+  log_group_name = var.log_group_name
+
+  metric_transformation {
+    name      = "backup-plan-job-failed"
+    namespace = var.metric_namespace
+    value     = 1
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "backup_plan_job_failed" {
+  count               = var.backup_plan_job_failed_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] backup-plan-job-failed"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "backup-plan-job-failed"
+  namespace           = var.metric_namespace
+  period              = var.backup_plan_job_failed_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.backup_plan_job_failed_threshold
+  alarm_description   = "Alarms when a backup job failed on Backup Plan."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
 }
