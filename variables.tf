@@ -36,6 +36,24 @@ variable "api-authorization-failure" {
   type        = bool
 }
 
+variable "api-authorization-failure-pattern" {
+  description = "Pattern used on filter"
+  default     = "{ ($.errorCode = \"*UnauthorizedOperation\") || ($.errorCode = \"AccessDenied*\") }"
+  type        = string
+}
+
+variable "api-authorization-failure-period" {
+  description = "Pattern used on filter"
+  default     = 300
+  type        = number
+}
+
+variable "api-authorization-failure-threshold" {
+  description = "Pattern used on filter"
+  default     = 1
+  type        = number
+}
+
 variable "s3-bucket-activity-event" {
   description = "Enable s3-bucket-activity-event alarm"
   default     = true

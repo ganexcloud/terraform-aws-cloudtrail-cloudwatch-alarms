@@ -4,10 +4,11 @@ data "aws_region" "current" {}
 
 data "aws_iam_account_alias" "current" {}
 
+# api-authorization-failure
 resource "aws_cloudwatch_log_metric_filter" "api_authorization_failure" {
   count          = var.api-authorization-failure ? 1 : 0
   name           = "api-authorization-failure"
-  pattern        = "{ ($.errorCode = \"*UnauthorizedOperation\") || ($.errorCode = \"AccessDenied*\") }"
+  pattern        = var.api-authorization-failure-pattern
   log_group_name = var.log_group_name
 
   metric_transformation {
@@ -24,15 +25,16 @@ resource "aws_cloudwatch_metric_alarm" "api_authorization_failure" {
   evaluation_periods  = "1"
   metric_name         = "api-authorization-failure"
   namespace           = var.metric_namespace
-  period              = "300"
+  period              = var.api-authorization-failure-period
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
-  threshold           = 1
+  threshold           = var.api-authorization-failure-threshold
   alarm_description   = "Alarms when an unauthorized API call is made."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
 }
 
+# s3-bucket-activity-event
 resource "aws_cloudwatch_log_metric_filter" "s3-bucket-activity-event" {
   count          = var.s3-bucket-activity-event ? 1 : 0
   name           = "s3-bucket-activity-event"
@@ -62,6 +64,7 @@ resource "aws_cloudwatch_metric_alarm" "s3-bucket-activity-event" {
   ok_actions          = var.sns_topic_arn
 }
 
+# security-group-event
 resource "aws_cloudwatch_log_metric_filter" "security-group-event" {
   count          = var.security-group-event ? 1 : 0
   name           = "security-group-event"
