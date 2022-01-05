@@ -30,6 +30,7 @@ resource "aws_cloudwatch_metric_alarm" "api_authorization_failure" {
   alarm_description   = "Alarms when an unauthorized API call is made."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # s3-bucket-activity-event
@@ -60,6 +61,7 @@ resource "aws_cloudwatch_metric_alarm" "s3_bucket_activity_event" {
   alarm_description   = "Alarms when an API call is made to S3 to put or delete a Bucket, Bucket Policy or Bucket ACL."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # security-group-event
@@ -90,6 +92,7 @@ resource "aws_cloudwatch_metric_alarm" "security_group_event" {
   alarm_description   = "Alarms when an API call is made to create, update or delete a Security Group."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # network-acl-event
@@ -120,6 +123,7 @@ resource "aws_cloudwatch_metric_alarm" "network_acl_event" {
   alarm_description   = "Alarms when an API call is made to create, update or delete a Network ACL."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # gateway-event
@@ -150,6 +154,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_event" {
   alarm_description   = "Alarms when an API call is made to create, update or delete a Customer or Internet Gateway."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 #vpc-event
@@ -180,6 +185,7 @@ resource "aws_cloudwatch_metric_alarm" "vpc_event" {
   alarm_description   = "Alarms when an API call is made to create, update or delete a VPC, VPC peering connection or VPC connection to classic."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # ec2-instance-event
@@ -210,6 +216,7 @@ resource "aws_cloudwatch_metric_alarm" "ec2_instance_event" {
   alarm_description   = "Alarms when an API call is made to create, terminate, start, stop or reboot an EC2 instance."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # ec2-large-instance-event
@@ -240,6 +247,7 @@ resource "aws_cloudwatch_metric_alarm" "ec2_large_instance_event" {
   alarm_description   = "Alarms when an API call is made to create, terminate, start, stop or reboot a 4x-large or greater EC2 instance."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # cloudtrail-event
@@ -270,6 +278,7 @@ resource "aws_cloudwatch_metric_alarm" "cloudtrail_event" {
   alarm_description   = "Alarms when an API call is made to create, update or delete a .cloudtrail. trail, or to start or stop logging to a trail."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # console-sign-in-failure
@@ -300,6 +309,7 @@ resource "aws_cloudwatch_metric_alarm" "console_sign_in_failure" {
   alarm_description   = "Alarms when an unauthenticated API call is made to sign into the console."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # iam-policy-change
@@ -330,6 +340,7 @@ resource "aws_cloudwatch_metric_alarm" "iam_policy_change" {
   alarm_description   = "Alarms when an API call is made to change an IAM policy."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # console-sign-in-without-mfa
@@ -360,6 +371,7 @@ resource "aws_cloudwatch_metric_alarm" "console_sign_in_without_mfa" {
   alarm_description   = "Alarms when a user logs into the console without MFA."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # root-account-usage
@@ -390,6 +402,7 @@ resource "aws_cloudwatch_metric_alarm" "root_account_usage" {
   alarm_description   = "Alarms when a root account usage is detected."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # kms-key-pending-deletion-error
@@ -420,6 +433,7 @@ resource "aws_cloudwatch_metric_alarm" "kms-key-pending-deletion-error" {
   alarm_description   = "Alarms when a customer created KMS key is pending deletion."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # aws-config-change
@@ -450,6 +464,7 @@ resource "aws_cloudwatch_metric_alarm" "aws_config_change" {
   alarm_description   = "Alarms when AWS Config changes."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # route-table-changes
@@ -480,6 +495,7 @@ resource "aws_cloudwatch_metric_alarm" "route_table_changes" {
   alarm_description   = "Alarms when route table changes are detected."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }
 
 # backup-plan-job-failed
@@ -510,4 +526,5 @@ resource "aws_cloudwatch_metric_alarm" "backup_plan_job_failed" {
   alarm_description   = "Alarms when a backup job failed on Backup Plan."
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
+  tags                = var.tags
 }

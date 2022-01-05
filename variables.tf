@@ -454,3 +454,9 @@ variable "backup_plan_job_failed_threshold" {
   default     = 1
   type        = number
 }
+
+variable "tags" {
+  description = "A map of tags (key-value pairs) passed to resources."
+  type        = map(string)
+  default     = {}
+}
