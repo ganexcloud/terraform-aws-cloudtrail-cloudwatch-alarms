@@ -55,6 +55,12 @@ variable "api_authorization_failure_threshold" {
   type        = number
 }
 
+variable "api_authorization_failure_priority" {
+  description = "Priority of alarm"
+  default     = "P5"
+  type        = string
+}
+
 # s3-bucket-activity-event
 variable "s3_bucket_activity_event_enabled" {
   description = "Enable s3-bucket-activity-event alarm"
@@ -78,6 +84,12 @@ variable "s3_bucket_activity_event_threshold" {
   description = "Threshold used on filter"
   default     = 1
   type        = number
+}
+
+variable "s3_bucket_activity_event_priority" {
+  description = "Priority of alarm"
+  default     = "P5"
+  type        = string
 }
 
 # security-group-event
@@ -105,6 +117,12 @@ variable "security_group_event_threshold" {
   type        = number
 }
 
+variable "security_group_event_priority" {
+  description = "Priority of alarm"
+  default     = "P5"
+  type        = string
+}
+
 # network-acl-event
 variable "network_acl_event_enabled" {
   description = "Enable network-acl-event alarm"
@@ -128,6 +146,12 @@ variable "network_acl_event_threshold" {
   description = "Threshold used on filter"
   default     = 1
   type        = number
+}
+
+variable "network_acl_event_priority" {
+  description = "Priority of alarm"
+  default     = "P5"
+  type        = string
 }
 
 # gateway-event
@@ -155,6 +179,12 @@ variable "gateway_event_threshold" {
   type        = number
 }
 
+variable "gateway_event_priority" {
+  description = "Priority of alarm"
+  default     = "P5"
+  type        = string
+}
+
 # vpc-event
 variable "vpc_event_enabled" {
   description = "Enable vpc-event alarm"
@@ -178,6 +208,12 @@ variable "vpc_event_threshold" {
   description = "Threshold used on filter"
   default     = 1
   type        = number
+}
+
+variable "vpc_event_priority" {
+  description = "Priority of alarm"
+  default     = "P5"
+  type        = string
 }
 
 # ec2-instance-event
@@ -205,6 +241,12 @@ variable "ec2_instance_event_threshold" {
   type        = number
 }
 
+variable "ec2_instance_event_priority" {
+  description = "Priority of alarm"
+  default     = "P5"
+  type        = string
+}
+
 # ec2-large-instance-event
 variable "ec2_large_instance_event_enabled" {
   description = "Enable ec2-large-instance-event alarm"
@@ -228,6 +270,12 @@ variable "ec2_large_instance_event_threshold" {
   description = "Threshold used on filter"
   default     = 1
   type        = number
+}
+
+variable "ec2_large_instance_event_priority" {
+  description = "Priority of alarm"
+  default     = "P5"
+  type        = string
 }
 
 # cloudtrail-event
@@ -255,6 +303,12 @@ variable "cloudtrail_event_threshold" {
   type        = number
 }
 
+variable "cloudtrail_event_priority" {
+  description = "Priority of alarm"
+  default     = "P4"
+  type        = string
+}
+
 # console-sign-in-failure
 variable "console_sign_in_failure_enabled" {
   description = "Enable console-sign-in-failure alarm"
@@ -278,6 +332,12 @@ variable "console_sign_in_failure_threshold" {
   description = "Threshold used on filter"
   default     = 3
   type        = number
+}
+
+variable "console_sign_in_failure_priority" {
+  description = "Priority of alarm"
+  default     = "P5"
+  type        = string
 }
 
 # iam-policy-change
@@ -305,6 +365,12 @@ variable "iam_policy_change_threshold" {
   type        = number
 }
 
+variable "iam_policy_change_priority" {
+  description = "Priority of alarm"
+  default     = "P5"
+  type        = string
+}
+
 # console-sign-in-without-mfa
 variable "console_sign_in_without_mfa_enabled" {
   description = "Enable console-sign-in-without-mfa alarm"
@@ -328,6 +394,12 @@ variable "console_sign_in_without_mfa_threshold" {
   description = "Threshold used on filter"
   default     = 1
   type        = number
+}
+
+variable "console_sign_in_without_mfa_priority" {
+  description = "Priority of alarm"
+  default     = "P5"
+  type        = string
 }
 
 # root-account-usage
@@ -355,6 +427,12 @@ variable "root_account_usage_threshold" {
   type        = number
 }
 
+variable "root_account_usage_priority" {
+  description = "Priority of alarm"
+  default     = "P2"
+  type        = string
+}
+
 # kms-key-pending-deletion-error
 variable "kms_key_pending_deletion_error_enabled" {
   description = "Enable kms-key-pending-deletion-error alarm"
@@ -378,6 +456,12 @@ variable "kms_key_pending_deletion_error_threshold" {
   description = "Threshold used on filter"
   default     = 1
   type        = number
+}
+
+variable "kms_key_pending_deletion_error_priority" {
+  description = "Priority of alarm"
+  default     = "P5"
+  type        = string
 }
 
 # aws-config-change
@@ -405,6 +489,12 @@ variable "aws_config_change_threshold" {
   type        = number
 }
 
+variable "aws_config_change_priority" {
+  description = "Priority of alarm"
+  default     = "P5"
+  type        = string
+}
+
 # route-table-changes
 variable "route_table_changes_enabled" {
   description = "Enable route-table-changes alarm"
@@ -430,6 +520,12 @@ variable "route_table_changes_threshold" {
   type        = number
 }
 
+variable "route_table_changes_priority" {
+  description = "Priority of alarm"
+  default     = "P5"
+  type        = string
+}
+
 # backup-plan-job-failed
 variable "backup_plan_job_failed_enabled" {
   description = "Enable backup-plan-job-failed alarm"
@@ -453,6 +549,12 @@ variable "backup_plan_job_failed_threshold" {
   description = "Threshold used on filter"
   default     = 1
   type        = number
+}
+
+variable "backup_plan_job_failed_priority" {
+  description = "Priority of alarm"
+  default     = "P3"
+  type        = string
 }
 
 variable "tags" {

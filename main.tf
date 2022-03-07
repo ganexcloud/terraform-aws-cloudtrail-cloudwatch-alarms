@@ -27,7 +27,7 @@ resource "aws_cloudwatch_metric_alarm" "api_authorization_failure" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.api_authorization_failure_threshold
-  alarm_description   = "Alarms when an unauthorized API call is made."
+  alarm_description   = "Alarms when an unauthorized API call is made. (${var.api_authorization_failure_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -58,7 +58,7 @@ resource "aws_cloudwatch_metric_alarm" "s3_bucket_activity_event" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.s3_bucket_activity_event_threshold
-  alarm_description   = "Alarms when an API call is made to S3 to put or delete a Bucket, Bucket Policy or Bucket ACL."
+  alarm_description   = "Alarms when an API call is made to S3 to put or delete a Bucket, Bucket Policy or Bucket ACL. (${var.s3_bucket_activity_event_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -89,7 +89,7 @@ resource "aws_cloudwatch_metric_alarm" "security_group_event" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.security_group_event_threshold
-  alarm_description   = "Alarms when an API call is made to create, update or delete a Security Group."
+  alarm_description   = "Alarms when an API call is made to create, update or delete a Security Group. (${var.security_group_event_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -120,7 +120,7 @@ resource "aws_cloudwatch_metric_alarm" "network_acl_event" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.network_acl_event_threshold
-  alarm_description   = "Alarms when an API call is made to create, update or delete a Network ACL."
+  alarm_description   = "Alarms when an API call is made to create, update or delete a Network ACL. (${var.network_acl_event_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -151,7 +151,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_event" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.gateway_event_threshold
-  alarm_description   = "Alarms when an API call is made to create, update or delete a Customer or Internet Gateway."
+  alarm_description   = "Alarms when an API call is made to create, update or delete a Customer or Internet Gateway. (${var.gateway_event_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -182,7 +182,7 @@ resource "aws_cloudwatch_metric_alarm" "vpc_event" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.vpc_event_threshold
-  alarm_description   = "Alarms when an API call is made to create, update or delete a VPC, VPC peering connection or VPC connection to classic."
+  alarm_description   = "Alarms when an API call is made to create, update or delete a VPC, VPC peering connection or VPC connection to classic. (${var.vpc_event_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -213,7 +213,7 @@ resource "aws_cloudwatch_metric_alarm" "ec2_instance_event" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.ec2_instance_event_threshold
-  alarm_description   = "Alarms when an API call is made to create, terminate, start, stop or reboot an EC2 instance."
+  alarm_description   = "Alarms when an API call is made to create, terminate, start, stop or reboot an EC2 instance. (${var.ec2_instance_event_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -244,7 +244,7 @@ resource "aws_cloudwatch_metric_alarm" "ec2_large_instance_event" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.ec2_large_instance_event_threshold
-  alarm_description   = "Alarms when an API call is made to create, terminate, start, stop or reboot a 4x-large or greater EC2 instance."
+  alarm_description   = "Alarms when an API call is made to create, terminate, start, stop or reboot a 4x-large or greater EC2 instance. (${var.ec2_large_instance_event_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -275,7 +275,7 @@ resource "aws_cloudwatch_metric_alarm" "cloudtrail_event" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.cloudtrail_event_threshold
-  alarm_description   = "Alarms when an API call is made to create, update or delete a .cloudtrail. trail, or to start or stop logging to a trail."
+  alarm_description   = "Alarms when an API call is made to create, update or delete a .cloudtrail. trail, or to start or stop logging to a trail. (${var.cloudtrail_event_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -306,7 +306,7 @@ resource "aws_cloudwatch_metric_alarm" "console_sign_in_failure" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.console_sign_in_failure_threshold
-  alarm_description   = "Alarms when an unauthenticated API call is made to sign into the console."
+  alarm_description   = "Alarms when an unauthenticated API call is made to sign into the console. (${var.console_sign_in_failure_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -337,7 +337,7 @@ resource "aws_cloudwatch_metric_alarm" "iam_policy_change" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.iam_policy_change_threshold
-  alarm_description   = "Alarms when an API call is made to change an IAM policy."
+  alarm_description   = "Alarms when an API call is made to change an IAM policy. (${var.iam_policy_change_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -368,7 +368,7 @@ resource "aws_cloudwatch_metric_alarm" "console_sign_in_without_mfa" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.console_sign_in_without_mfa_threshold
-  alarm_description   = "Alarms when a user logs into the console without MFA."
+  alarm_description   = "Alarms when a user logs into the console without MFA. (${var.console_sign_in_without_mfa_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -399,7 +399,7 @@ resource "aws_cloudwatch_metric_alarm" "root_account_usage" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.root_account_usage_threshold
-  alarm_description   = "Alarms when a root account usage is detected."
+  alarm_description   = "Alarms when a root account usage is detected. (${var.root_account_usage_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -430,7 +430,7 @@ resource "aws_cloudwatch_metric_alarm" "kms-key-pending-deletion-error" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.kms_key_pending_deletion_error_threshold
-  alarm_description   = "Alarms when a customer created KMS key is pending deletion."
+  alarm_description   = "Alarms when a customer created KMS key is pending deletion. (${var.kms_key_pending_deletion_error_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -461,7 +461,7 @@ resource "aws_cloudwatch_metric_alarm" "aws_config_change" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.aws_config_change_threshold
-  alarm_description   = "Alarms when AWS Config changes."
+  alarm_description   = "Alarms when AWS Config changes. (${var.aws_config_change_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -492,7 +492,7 @@ resource "aws_cloudwatch_metric_alarm" "route_table_changes" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.route_table_changes_threshold
-  alarm_description   = "Alarms when route table changes are detected."
+  alarm_description   = "Alarms when route table changes are detected. (${var.route_table_changes_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
@@ -523,7 +523,7 @@ resource "aws_cloudwatch_metric_alarm" "backup_plan_job_failed" {
   statistic           = "Sum"
   treat_missing_data  = "notBreaching"
   threshold           = var.backup_plan_job_failed_threshold
-  alarm_description   = "Alarms when a backup job failed on Backup Plan."
+  alarm_description   = "Alarms when a backup job failed on Backup Plan. (${var.backup_plan_job_failed_priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
