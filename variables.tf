@@ -51,7 +51,7 @@ variable "api_authorization_failure_period" {
 
 variable "api_authorization_failure_threshold" {
   description = "Pattern used on filter"
-  default     = 3
+  default     = 10
   type        = number
 }
 
