@@ -528,3 +528,37 @@ resource "aws_cloudwatch_metric_alarm" "backup_plan_job_failed" {
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
 }
+
+resource "aws_cloudwatch_metric_alarm" "aws_organizations_changes" {
+  count               = var.aws_organizations_changes_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] organizations changes"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "organizations-changes"
+  namespace           = var.metric_namespace
+  period              = var.aws_organizations_changes_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.aws_organizations_changes_threshold
+  alarm_description   = "Alarms when a organizations changes at AWS Account. (${var.aws_organizations_changes_priority})"
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+  tags                = var.tags
+}
+
+resource "aws_cloudwatch_metric_alarm" "disable_or_scheduled_deletion_of_kms_cmk" {
+  count               = var.disable_or_scheduled_deletion_of_kms_cmk_enabled ? 1 : 0
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] disable or scheduled deletion of kms cmk"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "disable-or-scheduled-deletion-of-kms-cmk"
+  namespace           = var.metric_namespace
+  period              = var.disable_or_scheduled_deletion_of_kms_cmk_period
+  statistic           = "Sum"
+  treat_missing_data  = "notBreaching"
+  threshold           = var.disable_or_scheduled_deletion_of_kms_cmk_threshold
+  alarm_description   = "Alarms when a kms cmk is disabled or scheduled deletion. (${var.disable_or_scheduled_deletion_of_kms_cmk_priority})"
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+  tags                = var.tags
+}

@@ -562,3 +562,63 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "aws_organizations_changes_enabled" {
+  description = "Enable organizations changes alarm"
+  default     = true
+  type        = bool
+}
+
+variable "aws_organizations_changes_pattern" {
+  description = "Pattern used on filter"
+  default     = "($.eventSource = organizations.amazonaws.com) && ($.eventName = AcceptHandshake) || ($.eventName = AttachPolicy) || ($.eventName = CancelHandshake) || ($.eventName = CreateAccount) || ($.eventName = CreateOrganization) || ($.eventName = CreateOrganizationalUnit) || ($.eventName = CreatePolicy) || ($.eventName = DeclineHandshake) || ($.eventName = DeleteOrganization) || ($.eventName = DeleteOrganizationalUnit) || ($.eventName = DeletePolicy) || ($.eventName = EnableAllFeatures) || ($.eventName = EnablePolicyType) || ($.eventName = InviteAccountToOrganization) || ($.eventName = LeaveOrganization) || ($.eventName = DetachPolicy) || ($.eventName = DisablePolicyType) || ($.eventName = MoveAccount) || ($.eventName = RemoveAccountFromOrganization) || ($.eventName = UpdateOrganizationalUnit) || ($.eventName = UpdatePolicy) }"
+  type        = string
+}
+
+variable "aws_organizations_changes_period" {
+  description = "Period used on filter"
+  default     = 300
+  type        = number
+}
+
+variable "aws_organizations_changes_threshold" {
+  description = "Threshold used on filter"
+  default     = 1
+  type        = number
+}
+
+variable "aws_organizations_changes_priority" {
+  description = "Priority of alarm"
+  default     = "P2"
+  type        = string
+}
+
+variable "disable_or_scheduled_deletion_of_kms_cmk_enabled" {
+  description = "Enable organizations changes alarm"
+  default     = true
+  type        = bool
+}
+
+variable "disable_or_scheduled_deletion_of_kms_cmk_pattern" {
+  description = "Pattern used on filter"
+  default     = "{ ($.eventSource = kms.amazonaws.com) && (($.eventName = DisableKey) || ($.eventName = ScheduleKeyDeletion)) }"
+  type        = string
+}
+
+variable "disable_or_scheduled_deletion_of_kms_cmk_period" {
+  description = "Period used on filter"
+  default     = 300
+  type        = number
+}
+
+variable "disable_or_scheduled_deletion_of_kms_cmk_threshold" {
+  description = "Threshold used on filter"
+  default     = 1
+  type        = number
+}
+
+variable "disable_or_scheduled_deletion_of_kms_cmk_priority" {
+  description = "Priority of alarm"
+  default     = "P2"
+  type        = string
+}
