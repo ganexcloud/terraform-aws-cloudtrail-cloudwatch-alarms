@@ -157,7 +157,7 @@ resource "aws_cloudwatch_metric_alarm" "gateway_event" {
   tags                = var.tags
 }
 
-#vpc-event
+# vpc-event
 resource "aws_cloudwatch_log_metric_filter" "vpc_event" {
   count          = var.vpc_event_enabled ? 1 : 0
   name           = "vpc-event"
@@ -529,14 +529,15 @@ resource "aws_cloudwatch_metric_alarm" "backup_plan_job_failed" {
   tags                = var.tags
 }
 
+# organizations-changes
 resource "aws_cloudwatch_log_metric_filter" "aws_organizations_changes" {
   count          = var.aws_organizations_changes_enabled ? 1 : 0
-  name           = "organizations-changes"
+  name           = "aws-organizations-changes"
   pattern        = var.aws_organizations_changes_pattern
   log_group_name = var.log_group_name
 
   metric_transformation {
-    name      = "aws_organizations_changes"
+    name      = "aws-organizations-changes"
     namespace = var.metric_namespace
     value     = 1
   }
@@ -544,10 +545,10 @@ resource "aws_cloudwatch_log_metric_filter" "aws_organizations_changes" {
 
 resource "aws_cloudwatch_metric_alarm" "aws_organizations_changes" {
   count               = var.aws_organizations_changes_enabled ? 1 : 0
-  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] organizations changes"
+  alarm_name          = "[${title(local.metric_alarm_name_prefix)}] aws organizations changes"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
-  metric_name         = "organizations-changes"
+  metric_name         = "aws-organizations-changes"
   namespace           = var.metric_namespace
   period              = var.aws_organizations_changes_period
   statistic           = "Sum"
@@ -559,6 +560,7 @@ resource "aws_cloudwatch_metric_alarm" "aws_organizations_changes" {
   tags                = var.tags
 }
 
+# disable-or-scheduled-deletion-of-kms-cmk
 resource "aws_cloudwatch_log_metric_filter" "disable_or_scheduled_deletion_of_kms_cmk" {
   count          = var.disable_or_scheduled_deletion_of_kms_cmk_enabled ? 1 : 0
   name           = "disable-or-scheduled-deletion-of-kms-cmk"
@@ -566,7 +568,7 @@ resource "aws_cloudwatch_log_metric_filter" "disable_or_scheduled_deletion_of_km
   log_group_name = var.log_group_name
 
   metric_transformation {
-    name      = "disable_or_scheduled_deletion_of_kms_cmk"
+    name      = "disable-or-scheduled-deletion-of-kms-cmk"
     namespace = var.metric_namespace
     value     = 1
   }

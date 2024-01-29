@@ -594,7 +594,7 @@ variable "aws_organizations_changes_priority" {
 }
 
 variable "disable_or_scheduled_deletion_of_kms_cmk_enabled" {
-  description = "Enable organizations changes alarm"
+  description = "Enable disable_or_scheduled_deletion_of_kms_cmk_enabled alarm"
   default     = true
   type        = bool
 }
