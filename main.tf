@@ -525,7 +525,6 @@ resource "aws_cloudwatch_metric_alarm" "backup_plan_job_failed" {
   threshold           = var.backup_plan_job_failed_threshold
   alarm_description   = "Alarms when a backup job failed on Backup Plan. (${var.backup_plan_job_failed_priority})"
   alarm_actions       = var.sns_topic_arn
-  ok_actions          = var.sns_topic_arn
   tags                = var.tags
 }
 
