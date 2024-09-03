@@ -225,7 +225,7 @@ variable "ec2_instance_event_enabled" {
 
 variable "ec2_instance_event_pattern" {
   description = "Pattern used on filter"
-  default     = "{ (($.userIdentity.invokedBy != \"autoscaling.amazonaws.com\" && $.userIdentity.invokedBy != \"spot.amazonaws.com\" && ($.userIdentity.arn != \"*karpenter*\"))) || $.userIdentity.invokedBy NOT EXISTS ) && ($.eventName = RunInstances || $.eventName = RebootInstances || $.eventName = StartInstances || $.eventName = StopInstances || $.eventName = TerminateInstances) && $.userIdentity.arn != \"*karpenter*\"} }"
+  default     = "{ (($.userIdentity.invokedBy != \"autoscaling.amazonaws.com\" && $.userIdentity.invokedBy != \"spot.amazonaws.com\" && ($.userIdentity.arn != \"*karpenter*\"))) || $.userIdentity.invokedBy NOT EXISTS ) && ($.eventName = RunInstances || $.eventName = RebootInstances || $.eventName = StartInstances || $.eventName = StopInstances || $.eventName = TerminateInstances) && $.userIdentity.arn != \"*karpenter*\"}"
   type        = string
 }
 
