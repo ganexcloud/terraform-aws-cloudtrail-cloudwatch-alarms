@@ -256,7 +256,7 @@ variable "ec2_large_instance_event_enabled" {
 
 variable "ec2_large_instance_event_pattern" {
   description = "Pattern used on filter"
-  default     = "{ ($.eventName = RunInstances) && (($.requestParameters.instanceType = *.8xlarge) || ($.requestParameters.instanceType = *.4xlarge) || ($.requestParameters.instanceType = *.16xlarge) || ($.requestParameters.instanceType = *.10xlarge) || ($.requestParameters.instanceType = *.12xlarge) || ($.requestParameters.instanceType = *.24xlarge)) }"
+  default     = "{ ($.eventName = RunInstances) && (($.requestParameters.instanceType = *.2xlarge) || ($.requestParameters.instanceType = *.4xlarge) || ($.requestParameters.instanceType = *.8xlarge) || ($.requestParameters.instanceType = *.10xlarge) || ($.requestParameters.instanceType = *.12xlarge) || ($.requestParameters.instanceType = *.16xlarge) || ($.requestParameters.instanceType = *.24xlarge) || ($.requestParameters.instanceType = *.32xlarge) || ($.requestParameters.instanceType = *.metal)) && ($.errorCode != Client.DryRunOperation) }"
   type        = string
 }
 
