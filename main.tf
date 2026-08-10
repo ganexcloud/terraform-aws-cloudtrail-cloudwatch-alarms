@@ -1,5 +1,3 @@
-data "aws_caller_identity" "default" {}
-data "aws_region" "current" {}
 data "aws_iam_account_alias" "current" {}
 
 # api-authorization-failure

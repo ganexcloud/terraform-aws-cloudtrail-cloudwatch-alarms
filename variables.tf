@@ -1,3 +1,4 @@
+# tflint-ignore: terraform_unused_declarations
 variable "additional_endpoint_arns" {
   description = "Any alert endpoints, such as autoscaling, or app scaling endpoint arns that will respond to an alert"
   default     = []
@@ -9,6 +10,7 @@ variable "sns_topic_arn" {
   type        = list(string)
 }
 
+# tflint-ignore: terraform_unused_declarations
 variable "region" {
   description = "The region that should be monitored for unauthorised AWS API Access. Current region used if none provied."
   default     = ""
@@ -17,10 +19,12 @@ variable "region" {
 
 variable "log_group_name" {
   description = "The cloudtrail cloudwatch log group name"
+  type        = string
 }
 
 variable "metric_namespace" {
   description = "A namespace for grouping all of the metrics together"
+  type        = string
   default     = "CloudTrailAlarms"
 }
 
